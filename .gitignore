@@ -1,0 +1,6 @@
+#此行为注释，不会起作用
+target/
+pom.xml
+umooc.iml
+src/main/resources/jdbc.properties
+src/main/java/com/uoumeng/umooc/entity

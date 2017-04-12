@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uoumeng.umooc.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Student" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="CHAR" />
+    <result column="passwd" property="passwd" jdbcType="VARCHAR" />
+    <result column="regdate" property="regdate" jdbcType="TIMESTAMP" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="tip" property="tip" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="xjid" property="xjid" jdbcType="INTEGER" />
+    <result column="jwid" property="jwid" jdbcType="INTEGER" />
+    <result column="xmid" property="xmid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, mobile, passwd, regdate, avatar, tip, status, xjid, jwid, xmid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uoumeng.umooc.entity.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uoumeng.umooc.entity.StudentExample" >
+    delete from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uoumeng.umooc.entity.Student" >
+    insert into student (id, mobile, passwd, 
+      regdate, avatar, tip, 
+      status, xjid, jwid, xmid
+      )
+    values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=CHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{regdate,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR}, #{tip,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{xjid,jdbcType=INTEGER}, #{jwid,jdbcType=INTEGER}, #{xmid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="passwd != null" >
+        passwd,
+      </if>
+      <if test="regdate != null" >
+        regdate,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="tip != null" >
+        tip,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="xjid != null" >
+        xjid,
+      </if>
+      <if test="jwid != null" >
+        jwid,
+      </if>
+      <if test="xmid != null" >
+        xmid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null" >
+        #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="tip != null" >
+        #{tip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="xjid != null" >
+        #{xjid,jdbcType=INTEGER},
+      </if>
+      <if test="jwid != null" >
+        #{jwid,jdbcType=INTEGER},
+      </if>
+      <if test="xmid != null" >
+        #{xmid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uoumeng.umooc.entity.StudentExample" resultType="java.lang.Integer" >
+    select count(*) from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=CHAR},
+      </if>
+      <if test="record.passwd != null" >
+        passwd = #{record.passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regdate != null" >
+        regdate = #{record.regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.avatar != null" >
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tip != null" >
+        tip = #{record.tip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.xjid != null" >
+        xjid = #{record.xjid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jwid != null" >
+        jwid = #{record.jwid,jdbcType=INTEGER},
+      </if>
+      <if test="record.xmid != null" >
+        xmid = #{record.xmid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student
+    set id = #{record.id,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=CHAR},
+      passwd = #{record.passwd,jdbcType=VARCHAR},
+      regdate = #{record.regdate,jdbcType=TIMESTAMP},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      tip = #{record.tip,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=CHAR},
+      xjid = #{record.xjid,jdbcType=INTEGER},
+      jwid = #{record.jwid,jdbcType=INTEGER},
+      xmid = #{record.xmid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uoumeng.umooc.entity.Student" >
+    update student
+    <set >
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="passwd != null" >
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null" >
+        regdate = #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="tip != null" >
+        tip = #{tip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="xjid != null" >
+        xjid = #{xjid,jdbcType=INTEGER},
+      </if>
+      <if test="jwid != null" >
+        jwid = #{jwid,jdbcType=INTEGER},
+      </if>
+      <if test="xmid != null" >
+        xmid = #{xmid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Student" >
+    update student
+    set mobile = #{mobile,jdbcType=CHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      regdate = #{regdate,jdbcType=TIMESTAMP},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      tip = #{tip,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      xjid = #{xjid,jdbcType=INTEGER},
+      jwid = #{jwid,jdbcType=INTEGER},
+      xmid = #{xmid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
