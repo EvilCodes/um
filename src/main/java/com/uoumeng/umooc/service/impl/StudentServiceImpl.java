@@ -27,18 +27,21 @@ public class StudentServiceImpl implements StudentService{
     private StudentMapper studentMapper;
 
     public Map<String, String> login(Student student) {
-        Result<String> result = new Result<String>();
+        Result<String> result = new Result<>();
         try {
             Student stu = studentMapper.selectByMobile(student.getMobile(),student.getPasswd());
             if(stu!=null){
-                String subject = JwtUtil.generalSubject(student);
-                String token = jwt.createJWT(Constant.JWT_ID, subject, Constant.JWT_TTL);
-                String refreshToken = jwt.createJWT(Constant.JWT_ID, subject, Constant.JWT_REFRESH_TTL);
-                Map<String,String> map = new HashMap<String, String>();
+                Map<String,Object> map  = new HashMap<>();
+                map.put("id",stu.getId());
+                map.put("mobile",stu.getMobile());
+                map.put("nick",stu.getNick());
+                String token = jwt.createJWT(Constant.JWT_ID,Constant.JWT_TTL,map);
+                String refreshToken = jwt.createJWT(Constant.JWT_ID, Constant.JWT_REFRESH_TTL,map);
+                Map<String,String> mapResult = new HashMap<String, String>();
                 JSONObject jo = new JSONObject();
-                map.put("token", token);
-                map.put("refreshToken", refreshToken);
-                return map;
+                mapResult.put("token", token);
+                mapResult.put("refreshToken", refreshToken);
+                return mapResult;
             }else{
                 throw new MyException("用户名或密码不存在");
             }

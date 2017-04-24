@@ -22,8 +22,9 @@ public class LoginController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "/login", method = RequestMethod.GET,produces="application/json;charset=UTF-8")
     public @ResponseBody Result login(@ModelAttribute("student") Student student){
+        System.out.println(student);
         if (student.getMobile()==null || student.getPasswd()==null || "".equals(student.getMobile()) || "".equals(student.getPasswd())){
             return new Result(false,"手机号码或密码不能为空");
         }
@@ -33,8 +34,10 @@ public class LoginController {
             result.setSuccess(true);
             result.setData(map);
         }catch(MyException e){
+            System.out.println(result);
             return new Result(false,e.getMessage());
         }
+        System.out.println(result);
         return result;
     }
 }

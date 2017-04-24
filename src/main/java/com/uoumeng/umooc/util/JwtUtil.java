@@ -1,8 +1,6 @@
 package com.uoumeng.umooc.util;
 
-import com.alibaba.fastjson.JSONObject;
 import com.uoumeng.umooc.constant.Constant;
-import com.uoumeng.umooc.entity.Student;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -13,11 +11,12 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
 
-    private String profiles;
+    private String profiles = "production";
 
     /**
      * 由字符串生成加密key
@@ -33,21 +32,18 @@ public class JwtUtil {
     /**
      * 创建jwt
      * @param id
-     * @param subject
      * @param ttlMillis
      * @return
      * @throws Exception
      */
-    public String createJWT(String id, String subject, long ttlMillis) throws Exception {
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    public String createJWT(String id,long ttlMillis,Map<String,Object> map) throws Exception {
         long nowMillis = System.currentTimeMillis();
-        Date now = new Date(nowMillis);
         SecretKey key = generalKey();
         JwtBuilder builder = Jwts.builder()
                 .setId(id)
-                .setIssuedAt(now)
-                .setSubject(subject)
-                .signWith(signatureAlgorithm, key);
+                .setIssuedAt(new Date(nowMillis))
+                .setClaims(map)
+                .signWith(SignatureAlgorithm.HS256, key);
         if (ttlMillis >= 0) {
             long expMillis = nowMillis + ttlMillis;
             Date exp = new Date(expMillis);
@@ -70,14 +66,4 @@ public class JwtUtil {
         return claims;
     }
 
-   /**
-     * 生成subject信息
-     * @param student
-     * @return
-     */
-    public static String generalSubject(Student student){
-        JSONObject jo = new JSONObject();
-        jo.put("mobile", student.getMobile());
-        return jo.toJSONString();
-    }
 }
