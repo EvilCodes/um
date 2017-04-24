@@ -16,14 +16,14 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private String profiles = "production";
+//    private String profiles = "production";
 
     /**
      * 由字符串生成加密key
      * @return
      */
     public SecretKey generalKey(){
-        String stringKey = profiles+ Constant.JWT_SECRET;
+        String stringKey = /*profiles+ */Constant.JWT_SECRET;
         byte[] encodedKey = Base64.decodeBase64(stringKey);
         SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
         return key;
@@ -31,17 +31,15 @@ public class JwtUtil {
 
     /**
      * 创建jwt
-     * @param id
      * @param ttlMillis
      * @return
      * @throws Exception
      */
-    public String createJWT(String id,long ttlMillis,Map<String,Object> map) throws Exception {
+    public String createJWT(long ttlMillis,Map<String,Object> map) throws Exception {
         long nowMillis = System.currentTimeMillis();
         SecretKey key = generalKey();
+//        Key key = MacProvider.generateKey();
         JwtBuilder builder = Jwts.builder()
-                .setId(id)
-                .setIssuedAt(new Date(nowMillis))
                 .setClaims(map)
                 .signWith(SignatureAlgorithm.HS256, key);
         if (ttlMillis >= 0) {
@@ -60,6 +58,7 @@ public class JwtUtil {
      */
     public Claims parseJWT(String jwt) throws Exception{
         SecretKey key = generalKey();
+//        Key key = MacProvider.generateKey();
         Claims claims = Jwts.parser()
                 .setSigningKey(key)
                 .parseClaimsJws(jwt).getBody();

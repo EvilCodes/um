@@ -23,7 +23,7 @@
     from student
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByMobile" resultMap="BaseResultMap">
+  <select id="selectByMobile" resultMap="BaseResultMap" parameterType="com.uoumeng.umooc.entity.Student">
     select
     <include refid="Base_Column_List" />
     from student

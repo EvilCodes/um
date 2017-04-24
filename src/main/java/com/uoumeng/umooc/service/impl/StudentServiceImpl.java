@@ -35,10 +35,9 @@ public class StudentServiceImpl implements StudentService{
                 map.put("id",stu.getId());
                 map.put("mobile",stu.getMobile());
                 map.put("nick",stu.getNick());
-                String token = jwt.createJWT(Constant.JWT_ID,Constant.JWT_TTL,map);
-                String refreshToken = jwt.createJWT(Constant.JWT_ID, Constant.JWT_REFRESH_TTL,map);
+                String token = jwt.createJWT(Constant.JWT_TTL,map);
+                String refreshToken = jwt.createJWT(Constant.JWT_REFRESH_TTL,map);
                 Map<String,String> mapResult = new HashMap<String, String>();
-                JSONObject jo = new JSONObject();
                 mapResult.put("token", token);
                 mapResult.put("refreshToken", refreshToken);
                 return mapResult;

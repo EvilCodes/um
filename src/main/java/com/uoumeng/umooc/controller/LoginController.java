@@ -34,7 +34,7 @@ public class LoginController {
             result.setSuccess(true);
             result.setData(map);
         }catch(MyException e){
-            System.out.println(result);
+            System.out.println("1"+result);
             return new Result(false,e.getMessage());
         }
         System.out.println(result);

@@ -1,6 +1,7 @@
 package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Student;
+import org.apache.ibatis.annotations.Param;
 
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer id);
@@ -15,5 +16,5 @@ public interface StudentMapper {
 
     int updateByPrimaryKey(Student record);
 
-    Student selectByMobile(String mobile,String passwd);
+    Student selectByMobile(@Param("mobile") String mobile, @Param("passwd") String passwd);
 }
