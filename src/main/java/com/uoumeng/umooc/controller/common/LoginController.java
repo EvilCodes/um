@@ -1,4 +1,4 @@
-package com.uoumeng.umooc.controller;
+package com.uoumeng.umooc.controller.common;
 
 import com.uoumeng.umooc.bean.Result;
 import com.uoumeng.umooc.entity.Student;
@@ -22,7 +22,7 @@ public class LoginController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "/login", method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public @ResponseBody Result login(@ModelAttribute("student") Student student){
         System.out.println(student);
         if (student.getMobile()==null || student.getPasswd()==null || "".equals(student.getMobile()) || "".equals(student.getPasswd())){

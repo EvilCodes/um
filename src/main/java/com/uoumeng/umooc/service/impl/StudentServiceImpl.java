@@ -1,7 +1,5 @@
 package com.uoumeng.umooc.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.uoumeng.umooc.bean.Result;
 import com.uoumeng.umooc.constant.Constant;
 import com.uoumeng.umooc.dao.StudentMapper;
 import com.uoumeng.umooc.entity.Student;
@@ -27,7 +25,6 @@ public class StudentServiceImpl implements StudentService{
     private StudentMapper studentMapper;
 
     public Map<String, String> login(Student student) {
-        Result<String> result = new Result<>();
         try {
             Student stu = studentMapper.selectByMobile(student.getMobile(),student.getPasswd());
             if(stu!=null){
@@ -35,6 +32,7 @@ public class StudentServiceImpl implements StudentService{
                 map.put("id",stu.getId());
                 map.put("mobile",stu.getMobile());
                 map.put("nick",stu.getNick());
+                map.put("role",Constant.STUDENT_ROLE);
                 String token = jwt.createJWT(Constant.JWT_TTL,map);
                 String refreshToken = jwt.createJWT(Constant.JWT_REFRESH_TTL,map);
                 Map<String,String> mapResult = new HashMap<String, String>();

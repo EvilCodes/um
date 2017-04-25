@@ -39,5 +39,15 @@
             <!--跨域请求拦截器-->
             <bean id="crossDomainInterceptor" class="com.uoumeng.umooc.interceptor.CrossDomainInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!--处理乱码问题-->
+            <bean id="encodingInterceptor" class="com.uoumeng.umooc.interceptor.EncodingInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!--JWT权限认证拦截器-->
+            <bean id="accessInterceptor" class="com.uoumeng.umooc.interceptor.AccessInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>

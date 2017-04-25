@@ -56,7 +56,7 @@ public class JwtUtil {
      * @return
      * @throws Exception
      */
-    public Claims parseJWT(String jwt) throws Exception{
+    public Claims parseJWT(String jwt){
         SecretKey key = generalKey();
 //        Key key = MacProvider.generateKey();
         Claims claims = Jwts.parser()
@@ -64,5 +64,4 @@ public class JwtUtil {
                 .parseClaimsJws(jwt).getBody();
         return claims;
     }
-
 }

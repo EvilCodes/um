@@ -1,4 +1,4 @@
-package com.uoumeng.umooc.controller;
+package com.uoumeng.umooc.controller.busi;
 
 import com.uoumeng.umooc.entity.Dept;
 import com.uoumeng.umooc.service.DeptService;
