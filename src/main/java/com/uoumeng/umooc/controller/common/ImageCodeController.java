@@ -40,7 +40,7 @@ public class ImageCodeController extends HttpServlet {
 	 */
 	private static final int lineWidth = 2;
 
-	@RequestMapping(value = "/imagecode.do")
+	@RequestMapping(value = "/imagecode")
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
 		// 设置页面不缓存
 		response.setHeader("Pragma", "No-cache");

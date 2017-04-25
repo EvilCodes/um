@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Employee" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="mobile" property="mobile" jdbcType="CHAR" />
+    <result column="nick" property="nick" jdbcType="VARCHAR" />
     <result column="passwd" property="passwd" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
@@ -11,7 +12,7 @@
     <result column="deptid" property="deptid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, mobile, passwd, qq, status, roleid, deptid
+    id, mobile, nick, passwd, qq, status, roleid, deptid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +25,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.uoumeng.umooc.entity.Employee" >
-    insert into employee (id, mobile, passwd, 
+    insert into employee (id, mobile,nick, passwd,
       qq, status, roleid, deptid
       )
-    values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=CHAR}, #{passwd,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=CHAR}, #{nick,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR},
       #{qq,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{roleid,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}
       )
   </insert>
@@ -39,6 +40,9 @@
       </if>
       <if test="mobile != null" >
         mobile,
+      </if>
+      <if test="nick != null" >
+        nick,
       </if>
       <if test="passwd != null" >
         passwd,
@@ -63,6 +67,9 @@
       <if test="mobile != null" >
         #{mobile,jdbcType=CHAR},
       </if>
+      <if test="nick != null" >
+        #{nick,jdbcType=VARCHAR},
+      </if>
       <if test="passwd != null" >
         #{passwd,jdbcType=VARCHAR},
       </if>
@@ -86,6 +93,9 @@
       <if test="mobile != null" >
         mobile = #{mobile,jdbcType=CHAR},
       </if>
+      <if test="nick != null" >
+        nick = #{nick,jdbcType=VARCHAR},
+      </if>
       <if test="passwd != null" >
         passwd = #{passwd,jdbcType=VARCHAR},
       </if>
@@ -107,6 +117,7 @@
   <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Employee" >
     update employee
     set mobile = #{mobile,jdbcType=CHAR},
+      nick = #{nick,jdbcType=VARCHAR},
       passwd = #{passwd,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
@@ -114,4 +125,16 @@
       deptid = #{deptid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <!-- 查找学生专属老师 -->
+    <select id="selectTeacherByStuId" resultType="Employee">
+        SELECT
+            e.qq,
+            e.nick
+        FROM
+            employee e,
+            student s
+        WHERE
+            e.id = s.jwid
+            AND s.id = #{stuId};
+    </select>
 </mapper>

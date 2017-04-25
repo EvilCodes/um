@@ -25,7 +25,7 @@ public class LoginController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/login.do", method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody Result login(@ModelAttribute("student") Student student, HttpServletRequest request){
         if (student.getMobile()==null || student.getPasswd()==null || "".equals(student.getMobile().trim()) || "".equals(student.getPasswd().trim())){
             return new Result(false,"手机号码或密码不能为空");
@@ -35,7 +35,9 @@ public class LoginController {
             Map<String,String> map = studentService.login(student.getMobile(), EncryptUtil.getMD5(student.getPasswd()));
             result.setSuccess(true);
             result.setData(map);
+            System.out.println(map+"-----------------");
         }catch(MyException e){
+            System.out.println(e.getMessage()+"-----------------");
             return new Result(false,e.getMessage());
         }
         return result;

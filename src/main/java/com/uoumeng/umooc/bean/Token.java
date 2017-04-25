@@ -4,7 +4,6 @@ import com.uoumeng.umooc.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by chenjun on 2017/4/25.
@@ -18,12 +17,9 @@ public class Token {
     public static final int ExpiredJwtError = 1;
     public static final int SignatureError = 2;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     public Token(String token) {
         try {
-            Claims claims = jwtUtil.parseJWT(token);
+            Claims claims = new JwtUtil().parseJWT(token);
             this.id = Integer.parseInt(claims.get("id").toString());
             this.mobile = claims.get("mobile").toString();
             this.nick = claims.get("nick").toString();
