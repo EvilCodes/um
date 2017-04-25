@@ -24,9 +24,9 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     private StudentMapper studentMapper;
 
-    public Map<String, String> login(Student student) {
+    public Map<String, String> login(String mobile,String passwd) {
         try {
-            Student stu = studentMapper.selectByMobile(student.getMobile(),student.getPasswd());
+            Student stu = studentMapper.selectByMobile(mobile,passwd);
             if(stu!=null){
                 Map<String,Object> map  = new HashMap<>();
                 map.put("id",stu.getId());
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService{
                 throw new MyException("用户名或密码不存在");
             }
         } catch(MyException e){
-            // 要先于catch Exception异常前先catch住再抛出，不然自定义的异常也会被转换为AppointException，导致控制层无法具体识别是哪个异常
+            // 要先于catch Exception异常前先catch住再抛出，不然自定义的异常也会被转换为MyException，导致控制层无法具体识别是哪个异常
             throw e;
         }catch (Exception e) {
             // 所有编译期异常转换为运行期异常
