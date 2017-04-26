@@ -172,4 +172,12 @@
       seid = #{seid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据小节查询练习题信息 -->
+  <select id="selectTrainingBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from training
+    where seid = #{seId,jdbcType=INTEGER}
+  </select>
 </mapper>

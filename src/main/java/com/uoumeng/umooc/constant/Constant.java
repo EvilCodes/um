@@ -16,4 +16,13 @@ public interface Constant {
     /** 学生角色名称 **/
     String STUDENT_ROLE = "student";
 
+    /** 题目类型 **/
+    String QUESTION_TYPE_SINGLR = "1";// 单选
+    String QUESTION_TYPE_CHECKBOX = "2"; // 多选
+    String QUESTION_TYPE_JUDGE = "3";// 判断题
+
+    /** 练习中题目的数量 **/
+    int NUMBER_SINGLE_TRAINSECTION = 2; // 单选题数量
+    int NUMBER_CHECKBOX_TRAINSECTION = 1; // 多选题数量
+    int NUMBER_JUDGE_TRAINSECTION = 1; // 判断题数量
 }

@@ -3,7 +3,6 @@ package com.uoumeng.umooc.dao;
 import com.uoumeng.umooc.entity.Training;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TrainingMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,4 +16,6 @@ public interface TrainingMapper {
     int updateByPrimaryKeySelective(Training record);
 
     int updateByPrimaryKey(Training record);
+
+    List<Training> selectTrainingBySeId(Integer seId);
 }
