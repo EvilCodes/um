@@ -68,4 +68,12 @@
       seid = #{seid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据视频小节id查询本节下载资源 -->
+  <select id="selectResourceBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from resource
+    where seid = #{seId,jdbcType=INTEGER}
+  </select>
 </mapper>

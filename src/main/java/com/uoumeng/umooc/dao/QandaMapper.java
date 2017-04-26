@@ -2,9 +2,6 @@ package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Qanda;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 public interface QandaMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,4 +14,11 @@ public interface QandaMapper {
     int updateByPrimaryKeySelective(Qanda record);
 
     int updateByPrimaryKey(Qanda record);
+
+    /**
+     * 根据小节ID查询常见问题
+     * @param seId
+     * @return
+     */
+    Qanda selectQandaBySeId(Integer seId);
 }

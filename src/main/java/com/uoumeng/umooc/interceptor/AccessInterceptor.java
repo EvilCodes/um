@@ -16,6 +16,7 @@ public class AccessInterceptor extends CrossDomainInterceptor{
         String uri = request.getRequestURI();
         if (!uri.startsWith(path+"/access")) {
             String auth = request.getHeader("Authorization");
+//            String auth = request.getParameter("Authorization");
             if (auth==null){
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                         "Authentication Failed: Require Authorization");

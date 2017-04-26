@@ -2,9 +2,6 @@ package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Resource;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 public interface ResourceMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,4 +14,6 @@ public interface ResourceMapper {
     int updateByPrimaryKeySelective(Resource record);
 
     int updateByPrimaryKey(Resource record);
+
+    Resource selectResourceBySeId(Integer seId);
 }

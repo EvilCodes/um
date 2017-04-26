@@ -68,4 +68,12 @@
       chid = #{chid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 根据章节ID，获取所有的练习小节 -->
+  <!-- 根据章节ID查询本章节所有的视频小节 -->
+  <select id="selectAllTrainingsectionByChId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from trainingsection
+    where chid = #{chId,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -68,4 +68,12 @@
       seid = #{seid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据小节ID查询笔记 -->
+  <select id="selectNoteBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+      select
+      <include refid="Base_Column_List" />
+      from notes
+      where seid = #{seId,jdbcType=INTEGER}
+  </select>
 </mapper>

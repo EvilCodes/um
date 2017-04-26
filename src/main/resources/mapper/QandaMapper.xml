@@ -68,4 +68,12 @@
       seid = #{seid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据视频小节ID查询常见问题 -->
+  <select id="selectQandaBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from qanda
+    where seid = #{seId,jdbcType=INTEGER}
+  </select>
 </mapper>
