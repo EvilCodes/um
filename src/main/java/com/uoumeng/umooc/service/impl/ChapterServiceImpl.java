@@ -1,7 +1,9 @@
 package com.uoumeng.umooc.service.impl;
 
+import com.uoumeng.umooc.dao.ChapterMapper;
 import com.uoumeng.umooc.dao.TrainingsectionMapper;
 import com.uoumeng.umooc.dao.VideosectionMapper;
+import com.uoumeng.umooc.entity.Chapter;
 import com.uoumeng.umooc.entity.Trainingsection;
 import com.uoumeng.umooc.entity.Videosection;
 import com.uoumeng.umooc.exception.MyException;
@@ -24,6 +26,9 @@ public class ChapterServiceImpl implements ChapterService{
     @Autowired
     private TrainingsectionMapper trainingsectionMapper;
 
+    @Autowired
+    private ChapterMapper chapterMapper;
+
     @Override
     public Map<String, List<?>> selectAllSections(Integer chId) {
         try{
@@ -33,6 +38,16 @@ public class ChapterServiceImpl implements ChapterService{
             map.put("listVideo",listVideo);
             map.put("listTraining",listTraining);
             return map;
+        } catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Chapter> selectAllChapters() {
+        try{
+            List<Chapter> list = chapterMapper.selectAllChapters();
+            return  list;
         } catch(Exception e){
             throw new MyException("系统错误："+e.getMessage());
         }
