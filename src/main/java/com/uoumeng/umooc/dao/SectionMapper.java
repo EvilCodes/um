@@ -2,6 +2,8 @@ package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Section;
 
+import java.util.List;
+
 /**
  * Created by chenjun on 2017/5/3.
  */
@@ -17,4 +19,6 @@ public interface SectionMapper {
     int updateByPrimaryKeySelective(Section record);
 
     int updateByPrimaryKey(Section record);
+
+    List<Section> selectSectionsByChId(Integer chId);
 }

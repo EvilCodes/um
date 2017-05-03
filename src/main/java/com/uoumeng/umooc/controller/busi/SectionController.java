@@ -1,9 +1,9 @@
 package com.uoumeng.umooc.controller.busi;
 
 import com.uoumeng.umooc.bean.Result;
-import com.uoumeng.umooc.entity.Training;
+import com.uoumeng.umooc.entity.Section;
 import com.uoumeng.umooc.exception.MyException;
-import com.uoumeng.umooc.service.TrainingsectionService;
+import com.uoumeng.umooc.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,19 +15,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by chenjun on 2017/4/26.
+ * Created by chenjun on 2017/5/3.
  */
 @Controller
 @RequestMapping(value = "/student")
-public class TrainingsectionController {
-    @Autowired
-    private TrainingsectionService trainingsectionService;
+public class SectionController {
 
-    @RequestMapping(value = "/selectTrainingBySeId",method = RequestMethod.GET)
+    @Autowired
+    private SectionService sectionService;
+
+    @RequestMapping(value = "/selectSectionsByChId",method = RequestMethod.GET)
     private @ResponseBody
-    Result selectTeacherByStuId(@RequestParam("seId") Integer seId){
+    Result selectSectionsByChId(@RequestParam("chId") Integer chId){
         try{
-            Map<String,List<Training>> map = trainingsectionService.selectTrainingBySeId(seId);
+            Map<String,List<Section>> map = sectionService.selectSectionsByChId(chId);
             return new Result(true,map);
         }catch(MyException e){
             return new Result(false,e.getMessage());

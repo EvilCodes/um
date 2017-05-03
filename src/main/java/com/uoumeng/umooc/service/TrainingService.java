@@ -8,6 +8,6 @@ import java.util.Map;
 /**
  * Created by chenjun on 2017/4/26.
  */
-public interface TrainingsectionService {
+public interface TrainingService {
     Map<String,List<Training>> selectTrainingBySeId(Integer seId);
 }

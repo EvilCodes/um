@@ -7,10 +7,10 @@ import java.util.Map;
  */
 public interface VideosectionService {
     /**
-     * 根据小节ID获取小节信息，
-     * 包括：视频信息、自动笔记、常见问题、下载资源
-     * @param seId 视频小节ID
+     * 根据视频小节ID获取视频播放界面信息：
+     * 视频信息、自动笔记、常见问题、资源下载。
+     * @param seId
      * @return
      */
-    Map<String,Object> selectVideosectionInfo(Integer seId);
+    Map<String, Object> selectVideosectionInfo(Integer seId);
 }

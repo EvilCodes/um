@@ -4,7 +4,7 @@ import com.uoumeng.umooc.constant.Constant;
 import com.uoumeng.umooc.dao.TrainingMapper;
 import com.uoumeng.umooc.entity.Training;
 import com.uoumeng.umooc.exception.MyException;
-import com.uoumeng.umooc.service.TrainingsectionService;
+import com.uoumeng.umooc.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.*;
  * Created by chenjun on 2017/4/26.
  */
 @Service
-public class TrainingsectionServiceImpl implements TrainingsectionService{
+public class TrainingServiceImpl implements TrainingService {
 
     @Autowired
     private TrainingMapper trainingMapper;

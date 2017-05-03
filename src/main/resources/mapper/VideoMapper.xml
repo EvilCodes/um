@@ -67,4 +67,12 @@
         seid = #{seid,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <!-- 根据小节ID获取小节视频信息 -->
+    <select id="selectBySeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from video
+        where seid = #{seId,jdbcType=INTEGER}
+    </select>
 </mapper>
