@@ -17,5 +17,17 @@ public interface TrainingMapper {
 
     int updateByPrimaryKey(Training record);
 
+    /**
+     * 查询练习
+     * @param seId
+     * @return
+     */
     List<Training> selectTrainingBySeId(Integer seId);
+
+    /**
+     * 查询形式考试考题
+     * @param chId
+     * @return
+     */
+    List<Training> selectFormalExamByChId(Integer chId);
 }

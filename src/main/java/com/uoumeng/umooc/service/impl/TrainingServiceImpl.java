@@ -23,7 +23,18 @@ public class TrainingServiceImpl implements TrainingService {
     public Map<String, List<Training>> selectTrainingBySeId(Integer seId) {
         try{
             List<Training> list = trainingMapper.selectTrainingBySeId(seId);
-            Map<String,List<Training>> map = randomTraining(list);
+            Map<String,List<Training>> map = randomTraining(list,Constant.NUMBER_SINGLE_TRAINSECTION,Constant.NUMBER_CHECKBOX_TRAINSECTION,Constant.NUMBER_JUDGE_TRAINSECTION);
+            return map;
+        }catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, List<Training>> selectFormalExamByChId(Integer chId) {
+        try{
+            List<Training> list = trainingMapper.selectFormalExamByChId(chId);
+            Map<String,List<Training>> map = randomTraining(list,Constant.NUMBER_SINGLE_FORMALEXAM,Constant.NUMBER_CHECKBOX_FORMALEXAM,Constant.NUMBER_JUDGE_FORMALEXAM);
             return map;
         }catch(Exception e){
             throw new MyException("系统错误："+e.getMessage());
@@ -36,7 +47,7 @@ public class TrainingServiceImpl implements TrainingService {
      * @param list
      * @return
      */
-    private Map<String,List<Training>> randomTraining(List<Training> list){
+    private Map<String,List<Training>> randomTraining(List<Training> list,int num_single,int num_checkbox,int num_judge){
         // 定义List，用于存储分拣的题目信息
         List<Training> listSingleTraining = new ArrayList<>();
         List<Training> listCheckboxTraining = new ArrayList<>();
@@ -60,17 +71,17 @@ public class TrainingServiceImpl implements TrainingService {
         List<Training> listJudeg = new ArrayList<>();
         Random ran = new Random();
         // 随机2道单选题并存储
-        for(int i=0;i<Constant.NUMBER_SINGLE_TRAINSECTION;i++){
+        for(int i=0;i<num_single;i++){
             int ranIndex = ran.nextInt(listSingleTraining.size());
             listSingle.add(listSingleTraining.get(ranIndex));
         }
         // 随机1道多选题并存储
-        for(int i=0;i<Constant.NUMBER_CHECKBOX_TRAINSECTION;i++){
+        for(int i=0;i<num_checkbox;i++){
             int ranIndex = ran.nextInt(listCheckboxTraining.size());
             listCheckbox.add(listCheckboxTraining.get(ranIndex));
         }
         // 随机1道判断题并存储
-        for(int i=0;i<Constant.NUMBER_JUDGE_TRAINSECTION;i++){
+        for(int i=0;i<num_judge;i++){
             int ranIndex = ran.nextInt(listJudgeTraining.size());
             listJudeg.add(listJudgeTraining.get(ranIndex));
         }

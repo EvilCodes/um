@@ -180,4 +180,12 @@
     from training
     where seid = #{seId,jdbcType=INTEGER}
   </select>
+
+  <!-- 根据章ID查询形式考试信息 -->
+  <select id="selectFormalExamByChId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from training
+    where chid = #{chId,jdbcType=INTEGER}
+  </select>
 </mapper>

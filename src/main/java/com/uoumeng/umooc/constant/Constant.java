@@ -25,4 +25,9 @@ public interface Constant {
     int NUMBER_SINGLE_TRAINSECTION = 2; // 单选题数量
     int NUMBER_CHECKBOX_TRAINSECTION = 1; // 多选题数量
     int NUMBER_JUDGE_TRAINSECTION = 1; // 判断题数量
+
+    /** 形式考试中的题目的数量 **/
+    int NUMBER_SINGLE_FORMALEXAM = 2; // 单选题数量
+    int NUMBER_CHECKBOX_FORMALEXAM = 1; // 多选题数量
+    int NUMBER_JUDGE_FORMALEXAM = 2; // 判断题数量
 }

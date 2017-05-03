@@ -21,7 +21,7 @@ import java.util.Map;
 @RequestMapping(value = "/student")
 public class TrainingController {
     @Autowired
-    private TrainingService trainingsectionService;
+    private TrainingService trainingService;
 
     /**
      * 根据小节ID获取练习
@@ -30,12 +30,25 @@ public class TrainingController {
     private @ResponseBody
     Result selectTrainingBySeId(@RequestParam("seId") Integer seId){
         try{
-            Map<String,List<Training>> map = trainingsectionService.selectTrainingBySeId(seId);
+            Map<String,List<Training>> map = trainingService.selectTrainingBySeId(seId);
             return new Result(true,map);
         }catch(MyException e){
             return new Result(false,e.getMessage());
         }
     }
 
+    /**
+     * 根据章ID获取整章形式考试
+     */
+    @RequestMapping(value = "/selectFormalExamByChId",method = RequestMethod.GET)
+    private @ResponseBody
+    Result selectFormalExamByChId(@RequestParam("chId") Integer chId){
+        try{
+            Map<String,List<Training>> map = trainingService.selectTrainingBySeId(chId);
+            return new Result(true,map);
+        }catch(MyException e){
+            return new Result(false,e.getMessage());
+        }
+    }
 
 }
