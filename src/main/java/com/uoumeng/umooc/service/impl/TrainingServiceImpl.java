@@ -106,6 +106,22 @@ public class TrainingServiceImpl implements TrainingService {
         }
     }
 
+    @Override
+    public boolean addTraining(Training training) {
+        try{
+            int id = trainingMapper.insertSelective(training);
+            if(id>0){
+                return true;
+            }else{
+                throw new MyException("插入有误！");
+            }
+        } catch(MyException e){
+            throw e;
+        } catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
+
     /**
      * 形式考试中的三种题型判分
      * @return 总分

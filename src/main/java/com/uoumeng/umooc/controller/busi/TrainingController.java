@@ -51,7 +51,9 @@ public class TrainingController {
         }
     }
 
-    // 批改小节练习，返回分数
+    /**
+     * 批改小节练习，返回分数
+      */
     @RequestMapping(value = "/correctTraining",method = RequestMethod.POST)
     private @ResponseBody
     Result correctTraining(@RequestBody Answer answer, HttpServletRequest request){
@@ -68,6 +70,12 @@ public class TrainingController {
         }
     }
 
+    /**
+     * 形式考试判分
+     * @param answer
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/correctFormalExam",method = RequestMethod.POST)
     private @ResponseBody
     Result correctFormalExam(@RequestBody Answer answer, HttpServletRequest request){
@@ -80,6 +88,27 @@ public class TrainingController {
             Map<String,Object> map = trainingService.correctFormalExam(answer,token.getId());
             return new Result(true,map);
         }catch(MyException e){
+            return new Result(false,e.getMessage());
+        }
+    }
+
+    /**
+     * 添加考题
+     */
+    @RequestMapping(value = "/addTraining",method = RequestMethod.POST)
+    private @ResponseBody Result addTraining(@ModelAttribute("training") Training training){
+        try{
+            if(training!=null){
+                return new Result(false,"参数有误!");
+            }
+            if(trainingService.addTraining(training)){
+                return new Result(true,"添加成功");
+            }else{
+                return new Result(false,"添加失败");
+            }
+        } catch(MyException e){
+            return new Result(false,e.getMessage());
+        } catch(Exception e){
             return new Result(false,e.getMessage());
         }
     }

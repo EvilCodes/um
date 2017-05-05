@@ -39,4 +39,6 @@ public interface TrainingService {
      * @return
      */
     Map<String,Object> correctFormalExam(Answer answer, int sid);
+
+    boolean addTraining(Training training);
 }
