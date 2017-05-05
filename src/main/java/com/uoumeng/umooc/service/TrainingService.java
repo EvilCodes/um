@@ -25,9 +25,18 @@ public interface TrainingService {
     Map<String,List<Training>> selectFormalExamByChId(Integer chId);
 
     /**
-     * 判分
+     * 小节练习判分
      * @param answer
+     * @param sid
      * @return
      */
     Map<String,Integer> correctTraining(Answer answer,int sid);
+
+    /**
+     * 章形式考试判分
+     * @param answer
+     * @param sid
+     * @return
+     */
+    Map<String,Object> correctFormalExam(Answer answer, int sid);
 }

@@ -6,8 +6,10 @@ import com.uoumeng.umooc.bean.JudgeAnswer;
 import com.uoumeng.umooc.bean.SingleAnswer;
 import com.uoumeng.umooc.constant.Constant;
 import com.uoumeng.umooc.dao.CreditMapper;
+import com.uoumeng.umooc.dao.ScoreMapper;
 import com.uoumeng.umooc.dao.TrainingMapper;
 import com.uoumeng.umooc.entity.Credit;
+import com.uoumeng.umooc.entity.Score;
 import com.uoumeng.umooc.entity.Training;
 import com.uoumeng.umooc.exception.MyException;
 import com.uoumeng.umooc.service.TrainingService;
@@ -27,6 +29,9 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Autowired
     private CreditMapper creditMapper;
+
+    @Autowired
+    private ScoreMapper scoreMapper;
 
     @Override
     public Map<String, List<Training>> selectTrainingBySeId(Integer seId) {
@@ -64,8 +69,8 @@ public class TrainingServiceImpl implements TrainingService {
             credit.setCtime(new Date());
             credit.setReason(Constant.REASON_SCORE_TRAINING);
             credit.setSid(sid);
-            creditMapper.insert(credit);
-            Map<String,Integer> map = new HashMap<String, Integer>();
+            creditMapper.insertSelective(credit);
+            Map<String,Integer> map = new HashMap<>();
             map.put("score",totalScore);
             // 返回Map
             return map;
@@ -74,8 +79,48 @@ public class TrainingServiceImpl implements TrainingService {
         }
     }
 
+    @Override
+    public Map<String, Object> correctFormalExam(Answer answer, int sid) {
+        try{
+            // 计算总分
+            int totalScore = correctFormalExam(answer);
+            // 记录成绩
+            Score score = new Score();
+            score.setChid(Integer.parseInt(answer.getChId()));
+            score.setScore(totalScore);
+            score.setSid(sid);
+            score.setType(Constant.TYPE_FORMAL_EXAM);
+            score.setStime(new Date());
+            scoreMapper.insertSelective(score);
+            Map<String,Object> map = new HashMap<>();
+            map.put("score",totalScore);
+            if(totalScore >= Constant.SCORE_PASS_FORMAL_EXAM){
+                map.put("pass",true);
+            }else{
+                map.put("pass",false);
+            }
+            // 返回Map
+            return map;
+        }catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
+
     /**
-     * 三种题型判分
+     * 形式考试中的三种题型判分
+     * @return 总分
+     */
+    public int correctFormalExam(Answer answer){
+        List<SingleAnswer> listSingle = answer.getSingle();
+        List<CheckBoxAnswer> listCheckbox = answer.getCheckbox();
+        List<JudgeAnswer> listJudge = answer.getJudge();
+        return correctSingle(listSingle,Constant.SCORE_SINGLE_FORMALEXAM)
+                + correctCheckbox(listCheckbox,Constant.SCORE_CHECKBOX_ALL_FORMALEXAM,Constant.SCORE_CHECKBOX_HALF_FORMALEXAM)
+                + correctJudge(listJudge,Constant.SCORE_JUDGE_FORMALEXAM);
+    }
+
+    /**
+     * 小节练习中的三种题型判分
      * @return 总分
      */
     public int correctTraining(Answer answer){

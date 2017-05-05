@@ -46,4 +46,11 @@ public interface Constant {
 
     /** 得分原因 **/
     String REASON_SCORE_TRAINING = "课后练习";
+
+    /** 考试类型 **/
+    String TYPE_FORMAL_EXAM = "1";// 形式考试
+    String TYPE_PROJECT_EXAM = "2";// 项目考试
+
+    /** 形考通过的及格分 **/
+    int SCORE_PASS_FORMAL_EXAM = 40;
 }
