@@ -5,7 +5,9 @@ import com.uoumeng.umooc.bean.CheckBoxAnswer;
 import com.uoumeng.umooc.bean.JudgeAnswer;
 import com.uoumeng.umooc.bean.SingleAnswer;
 import com.uoumeng.umooc.constant.Constant;
+import com.uoumeng.umooc.dao.CreditMapper;
 import com.uoumeng.umooc.dao.TrainingMapper;
+import com.uoumeng.umooc.entity.Credit;
 import com.uoumeng.umooc.entity.Training;
 import com.uoumeng.umooc.exception.MyException;
 import com.uoumeng.umooc.service.TrainingService;
@@ -22,6 +24,9 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Autowired
     private TrainingMapper trainingMapper;
+
+    @Autowired
+    private CreditMapper creditMapper;
 
     @Override
     public Map<String, List<Training>> selectTrainingBySeId(Integer seId) {
@@ -47,16 +52,24 @@ public class TrainingServiceImpl implements TrainingService {
 
 
     @Override
-    public Map<String, Object> correctTraining(Answer answer) {
+    public Map<String, Integer> correctTraining(Answer answer,int sid) {
         try{
             // 计算总分
-            int totalScore = correctTrainingScore(answer);
+            int totalScore = correctTraining(answer);
             // 记录学分
-
-            return null;
-        } catch(MyException e){
-            throw e;
-        } catch(Exception e){
+            Credit credit = new Credit();
+            credit.setAmount(totalScore);
+            credit.setChid(Integer.parseInt(answer.getChId()));
+            credit.setSeid(Integer.parseInt(answer.getSeId()));
+            credit.setCtime(new Date());
+            credit.setReason(Constant.REASON_SCORE_TRAINING);
+            credit.setSid(sid);
+            creditMapper.insert(credit);
+            Map<String,Integer> map = new HashMap<String, Integer>();
+            map.put("score",totalScore);
+            // 返回Map
+            return map;
+        }catch(Exception e){
             throw new MyException("系统错误："+e.getMessage());
         }
     }
@@ -65,7 +78,7 @@ public class TrainingServiceImpl implements TrainingService {
      * 三种题型判分
      * @return 总分
      */
-    public int correctTrainingScore(Answer answer){
+    public int correctTraining(Answer answer){
         List<SingleAnswer> listSingle = answer.getSingle();
         List<CheckBoxAnswer> listCheckbox = answer.getCheckbox();
         List<JudgeAnswer> listJudge = answer.getJudge();

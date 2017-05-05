@@ -43,4 +43,7 @@ public interface Constant {
     int SCORE_CHECKBOX_HALF_FORMALEXAM = 1; // 多选半对2分
     int SCORE_JUDGE_FORMALEXAM = 1; // 判断1分
 
+
+    /** 得分原因 **/
+    String REASON_SCORE_TRAINING = "课后练习";
 }

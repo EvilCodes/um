@@ -2,6 +2,7 @@ package com.uoumeng.umooc.controller.busi;
 
 import com.uoumeng.umooc.bean.Answer;
 import com.uoumeng.umooc.bean.Result;
+import com.uoumeng.umooc.bean.Token;
 import com.uoumeng.umooc.entity.Training;
 import com.uoumeng.umooc.exception.MyException;
 import com.uoumeng.umooc.service.TrainingService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -51,12 +53,14 @@ public class TrainingController {
 
     @RequestMapping(value = "/correctTraining",method = RequestMethod.POST)
     private @ResponseBody
-    Result correctTraining(@RequestBody Answer answer){
+    Result correctTraining(@RequestBody Answer answer, HttpServletRequest request){
         if(answer==null){
             return new Result(false,"参数有误！");
         }
         try{
-            Map<String,Object> map = trainingService.correctTraining(answer);
+            String auth = request.getHeader("");
+            Token token = new Token(auth);
+            Map<String,Integer> map = trainingService.correctTraining(answer,token.getId());
             return new Result(true,map);
         }catch(MyException e){
             return new Result(false,e.getMessage());

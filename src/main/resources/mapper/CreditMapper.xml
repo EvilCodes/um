@@ -6,10 +6,12 @@
     <result column="amount" property="amount" jdbcType="INTEGER" />
     <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="chid" property="chid" jdbcType="INTEGER" />
+    <result column="seid" property="seid" jdbcType="INTEGER" />
     <result column="sid" property="sid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, amount, ctime, reason, sid
+    id, amount, ctime, reason, chid,seid,sid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,10 +24,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.uoumeng.umooc.entity.Credit" >
-    insert into credit (id, amount, ctime, 
-      reason, sid)
+    insert into credit (id, amount, ctime,reason, chid, seid, sid)
     values (#{id,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP}, 
-      #{reason,jdbcType=VARCHAR}, #{sid,jdbcType=INTEGER})
+      #{reason,jdbcType=VARCHAR}, #{chid,jdbcType=INTEGER}, #{seid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Credit" >
     insert into credit
@@ -41,6 +42,12 @@
       </if>
       <if test="reason != null" >
         reason,
+      </if>
+      <if test="chid != null" >
+        chid,
+      </if>
+      <if test="seid != null" >
+        seid,
       </if>
       <if test="sid != null" >
         sid,
@@ -59,6 +66,12 @@
       <if test="reason != null" >
         #{reason,jdbcType=VARCHAR},
       </if>
+      <if test="chid != null" >
+        #{chid,jdbcType=INTEGER},
+      </if>
+      <if test="seid != null" >
+        #{seid,jdbcType=INTEGER},
+      </if>
       <if test="sid != null" >
         #{sid,jdbcType=INTEGER},
       </if>
@@ -76,6 +89,12 @@
       <if test="reason != null" >
         reason = #{reason,jdbcType=VARCHAR},
       </if>
+      <if test="chid != null" >
+        chid = #{chid,jdbcType=INTEGER},
+      </if>
+      <if test="seid != null" >
+        seid = #{seid,jdbcType=INTEGER},
+      </if>
       <if test="sid != null" >
         sid = #{sid,jdbcType=INTEGER},
       </if>
@@ -87,6 +106,8 @@
     set amount = #{amount,jdbcType=INTEGER},
       ctime = #{ctime,jdbcType=TIMESTAMP},
       reason = #{reason,jdbcType=VARCHAR},
+      chid = #{chid,jdbcType=INTEGER},
+      seid = #{seid,jdbcType=INTEGER},
       sid = #{sid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

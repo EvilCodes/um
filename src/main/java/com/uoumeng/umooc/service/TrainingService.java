@@ -29,5 +29,5 @@ public interface TrainingService {
      * @param answer
      * @return
      */
-    Map<String,Object> correctTraining(Answer answer);
+    Map<String,Integer> correctTraining(Answer answer,int sid);
 }
