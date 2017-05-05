@@ -1,5 +1,6 @@
 package com.uoumeng.umooc.service;
 
+import com.uoumeng.umooc.bean.Answer;
 import com.uoumeng.umooc.entity.Training;
 
 import java.util.List;
@@ -23,4 +24,10 @@ public interface TrainingService {
      */
     Map<String,List<Training>> selectFormalExamByChId(Integer chId);
 
+    /**
+     * 判分
+     * @param answer
+     * @return
+     */
+    Map<String,Object> correctTraining(Answer answer);
 }

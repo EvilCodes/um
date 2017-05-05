@@ -20,10 +20,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.uoumeng.umooc.entity.Notes" >
-    insert into notes (id, notes, seid
-      )
-    values (#{id,jdbcType=INTEGER}, #{notes,jdbcType=VARCHAR}, #{seid,jdbcType=INTEGER}
-      )
+    insert into notes (id, notes, seid)
+    values (#{id,jdbcType=INTEGER}, #{notes,jdbcType=VARCHAR}, #{seid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Notes" >
     insert into notes
@@ -76,4 +74,7 @@
       from notes
       where seid = #{seId,jdbcType=INTEGER}
   </select>
+
+  <!-- 分页获取所有笔记 -->
+
 </mapper>

@@ -30,4 +30,17 @@ public interface Constant {
     int NUMBER_SINGLE_FORMALEXAM = 2; // 单选题数量
     int NUMBER_CHECKBOX_FORMALEXAM = 1; // 多选题数量
     int NUMBER_JUDGE_FORMALEXAM = 2; // 判断题数量
+
+    /** 练习中的各试题的分数 **/
+    int SCORE_SINGLE_TRAINING = 1; // 单选1分
+    int SCORE_CHECKBOX_ALL_TRAINING = 2; // 多选全对2分
+    int SCORE_CHECKBOX_HALF_TRAINING = 1; // 多选半对2分
+    int SCORE_JUDGE_TRAINING = 1; // 判断1分
+
+    /** 形式考试中的各试题分数 **/
+    int SCORE_SINGLE_FORMALEXAM = 1; // 单选1分
+    int SCORE_CHECKBOX_ALL_FORMALEXAM = 2; // 多选全对2分
+    int SCORE_CHECKBOX_HALF_FORMALEXAM = 1; // 多选半对2分
+    int SCORE_JUDGE_FORMALEXAM = 1; // 判断1分
+
 }

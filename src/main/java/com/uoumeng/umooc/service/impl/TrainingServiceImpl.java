@@ -1,5 +1,9 @@
 package com.uoumeng.umooc.service.impl;
 
+import com.uoumeng.umooc.bean.Answer;
+import com.uoumeng.umooc.bean.CheckBoxAnswer;
+import com.uoumeng.umooc.bean.JudgeAnswer;
+import com.uoumeng.umooc.bean.SingleAnswer;
 import com.uoumeng.umooc.constant.Constant;
 import com.uoumeng.umooc.dao.TrainingMapper;
 import com.uoumeng.umooc.entity.Training;
@@ -40,6 +44,104 @@ public class TrainingServiceImpl implements TrainingService {
             throw new MyException("系统错误："+e.getMessage());
         }
     }
+
+
+    @Override
+    public Map<String, Object> correctTraining(Answer answer) {
+        try{
+            // 计算总分
+            int totalScore = correctTrainingScore(answer);
+            // 记录学分
+
+            return null;
+        } catch(MyException e){
+            throw e;
+        } catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
+
+    /**
+     * 三种题型判分
+     * @return 总分
+     */
+    public int correctTrainingScore(Answer answer){
+        List<SingleAnswer> listSingle = answer.getSingle();
+        List<CheckBoxAnswer> listCheckbox = answer.getCheckbox();
+        List<JudgeAnswer> listJudge = answer.getJudge();
+        return correctSingle(listSingle,Constant.SCORE_SINGLE_TRAINING)
+                + correctCheckbox(listCheckbox,Constant.SCORE_CHECKBOX_ALL_TRAINING,Constant.SCORE_CHECKBOX_HALF_TRAINING)
+                + correctJudge(listJudge,Constant.SCORE_JUDGE_TRAINING);
+    }
+
+    /**
+     * 单选题得分
+     * @param list
+     * @return
+     */
+    public int correctSingle(List<SingleAnswer> list,int singleScore){
+        int score = 0;
+        for(SingleAnswer sa : list){
+            Training training = trainingMapper.selectByPrimaryKey(Integer.parseInt(sa.getId()));
+            if(sa.getChecked().equals(training.getAnswer())){
+                // 答对+1分
+                score += singleScore;
+            }
+        }
+        return score;
+    }
+
+    /**
+     * 多选题判分
+     * 全对两分、半对1分
+     * @param list
+     * @return
+     */
+    public int correctCheckbox(List<CheckBoxAnswer> list,int allScore,int halfScore){
+        int score = 0;
+        for(CheckBoxAnswer ca : list){
+            Training training = trainingMapper.selectByPrimaryKey(Integer.parseInt(ca.getId()));
+            List<String> listAnswer = ca.getChecked();
+            String strAnswer = "";
+            boolean flag = true;
+            // 错误没有分
+            for(String answer : listAnswer){
+                strAnswer += answer;
+                if(!training.getAnswer().contains(answer)){
+                    flag = false;
+                }
+            }
+            if(flag){
+                if(strAnswer.length()==training.getAnswer().length()){
+                    // 全对2分
+                    score += allScore;
+                }else{
+                    // 半对1分
+                    score += halfScore;
+                }
+            }
+        }
+        return score;
+    }
+
+    /**
+     * 判断题判分
+     * @param list
+     * @return
+     */
+    public int correctJudge(List<JudgeAnswer> list,int judgeScore){
+        int score = 0;
+        for(JudgeAnswer ja : list){
+            Training training = trainingMapper.selectByPrimaryKey(Integer.parseInt(ja.getId()));
+            if(training.getAnswer().equalsIgnoreCase(ja.getChecked())){
+                // 答对+1分
+                score += judgeScore;
+            }
+        }
+        return score;
+    }
+
+
 
     /**
      * 将从数据库中取出的所有题目
