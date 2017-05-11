@@ -35,6 +35,7 @@ public class LoginController {
             Map<String,String> map = studentService.login(student.getMobile(), EncryptUtil.getMD5(student.getPasswd()));
             result.setSuccess(true);
             result.setData(map);
+            System.out.println("-----------------"+map+"-----------------");
         }catch(MyException e){
             return new Result(false,e.getMessage());
         }

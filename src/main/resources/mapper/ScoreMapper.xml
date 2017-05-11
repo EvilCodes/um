@@ -125,4 +125,12 @@
       emid = #{emid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据学生ID查找该学生所有的形考成绩 -->
+  <select id="selectFormalExamScores" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from score
+    where sid = #{sid,jdbcType=INTEGER} and type = #{type,jdbcType=VARCHAR}
+  </select>
 </mapper>

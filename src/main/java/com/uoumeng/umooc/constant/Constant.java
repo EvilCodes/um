@@ -1,5 +1,8 @@
 package com.uoumeng.umooc.constant;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by chenjun on 2017/4/14.
  */
@@ -53,4 +56,17 @@ public interface Constant {
 
     /** 形考通过的及格分 **/
     int SCORE_PASS_FORMAL_EXAM = 40;
+    /** 项目考试通过的及格分 **/
+    int SCORE_PASS_PROJECT_EXAM = 60;
+
+    /** 哪些章只有形式考试没有项目考试 **/
+    List<Integer> LIST_CHAPTER_ONLY_FORMAL_EXAM = Arrays.asList(new Integer[]{1,11,12,13,14,15});
+
+    /** 章的状态1、已经学完 2、正在学习 3、还不能学 **/
+    String STATUS_CHAPTER_YES = "1";
+    /** 正在学习 **/
+    String STATUS_CHAPTER_ING = "2";
+    /** 还不能学 **/
+    String STATUS_CHAPTER_NO = "3";
+
 }

@@ -1,9 +1,9 @@
 package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Score;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface ScoreMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,4 +17,6 @@ public interface ScoreMapper {
     int updateByPrimaryKeySelective(Score record);
 
     int updateByPrimaryKey(Score record);
+
+    List<Score> selectFormalExamScores(@Param("sid") Integer sid, @Param("type") String type);
 }

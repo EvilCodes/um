@@ -5,9 +5,10 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="cdesc" property="cdesc" jdbcType="VARCHAR" />
+    <result column="serno" property="serno" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, cdesc
+    id, name, cdesc,serno
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,9 +21,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.uoumeng.umooc.entity.Chapter" >
-    insert into chapter (id, name, cdesc
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{cdesc,jdbcType=VARCHAR}
+    insert into chapter (id, name, cdesc,serno)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{cdesc,jdbcType=VARCHAR}, #{serno,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Chapter" >
@@ -37,6 +37,9 @@
       <if test="cdesc != null" >
         cdesc,
       </if>
+      <if test="serno != null" >
+        serno,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -47,6 +50,9 @@
       </if>
       <if test="cdesc != null" >
         #{cdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="serno != null" >
+        #{serno,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -59,13 +65,17 @@
       <if test="cdesc != null" >
         cdesc = #{cdesc,jdbcType=VARCHAR},
       </if>
+      <if test="serno != null" >
+        serno = #{serno,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Chapter" >
     update chapter
     set name = #{name,jdbcType=VARCHAR},
-      cdesc = #{cdesc,jdbcType=VARCHAR}
+      cdesc = #{cdesc,jdbcType=VARCHAR},
+      serno = #{serno,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -73,6 +83,6 @@
   <select id="selectAllChapters" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from chapter
+    from chapter order by serno;
   </select>
 </mapper>
