@@ -1,5 +1,7 @@
 package com.uoumeng.umooc.bean;
 
+import com.uoumeng.umooc.constant.Constant;
+
 /**
  * Created by chenjun on 2017/5/10.
  */
@@ -7,7 +9,8 @@ public class StudentChapter {
     private Integer chid;
     private String chname;
     private String chdesc;
-    private String flag;
+    /** 默认所有章都不能学习 **/
+    private String flag = Constant.STATUS_CHAPTER_NO;
     private Integer formalScore;
     private Integer projectScore;
     public StudentChapter(){}

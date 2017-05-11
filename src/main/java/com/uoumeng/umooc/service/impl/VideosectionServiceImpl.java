@@ -2,11 +2,11 @@ package com.uoumeng.umooc.service.impl;
 
 import com.uoumeng.umooc.dao.NotesMapper;
 import com.uoumeng.umooc.dao.QandaMapper;
-import com.uoumeng.umooc.dao.ResourceMapper;
+import com.uoumeng.umooc.dao.AssetsMapper;
 import com.uoumeng.umooc.dao.VideoMapper;
 import com.uoumeng.umooc.entity.Notes;
 import com.uoumeng.umooc.entity.Qanda;
-import com.uoumeng.umooc.entity.Resource;
+import com.uoumeng.umooc.entity.Assets;
 import com.uoumeng.umooc.entity.Video;
 import com.uoumeng.umooc.exception.MyException;
 import com.uoumeng.umooc.service.VideosectionService;
@@ -27,7 +27,7 @@ public class VideosectionServiceImpl implements VideosectionService{
     @Autowired
     private QandaMapper qandaMapper;
     @Autowired
-    private ResourceMapper resourceMapper;
+    private AssetsMapper assetsMapper;
     @Autowired
     private VideoMapper videoMapper;
 
@@ -37,11 +37,11 @@ public class VideosectionServiceImpl implements VideosectionService{
             Map<String,Object> map = new HashMap<>();
             Notes notes = notesMapper.selectNoteBySeId(seId);
             Qanda qanda = qandaMapper.selectQandaBySeId(seId);
-            Resource resource = resourceMapper.selectResourceBySeId(seId);
+            Assets assets = assetsMapper.selectAssetsBySeId(seId);
             Video video = videoMapper.selectBySeId(seId);
             map.put("notes",notes);
             map.put("qanda",qanda);
-            map.put("resource",resource);
+            map.put("assets",assets);
             map.put("video",video);
             return map;
         } catch(Exception e){

@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Qanda" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="qanda" property="qanda" jdbcType="VARCHAR" />
+    <result column="chid" property="chid" jdbcType="INTEGER" />
     <result column="seid" property="seid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, qanda, seid
+    id, qanda, chid,seid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,9 +21,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.uoumeng.umooc.entity.Qanda" >
-    insert into qanda (id, qanda, seid
+    insert into qanda (id, qanda,chid, seid
       )
-    values (#{id,jdbcType=INTEGER}, #{qanda,jdbcType=VARCHAR}, #{seid,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{qanda,jdbcType=VARCHAR}, #{chid,jdbcType=INTEGER}, #{seid,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Qanda" >
@@ -37,6 +38,9 @@
       <if test="seid != null" >
         seid,
       </if>
+      <if test="chid != null" >
+        chid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -44,6 +48,9 @@
       </if>
       <if test="qanda != null" >
         #{qanda,jdbcType=VARCHAR},
+      </if>
+      <if test="chid != null" >
+        #{chid,jdbcType=INTEGER},
       </if>
       <if test="seid != null" >
         #{seid,jdbcType=INTEGER},
@@ -56,6 +63,9 @@
       <if test="qanda != null" >
         qanda = #{qanda,jdbcType=VARCHAR},
       </if>
+      <if test="chid != null" >
+        chid = #{chid,jdbcType=INTEGER},
+      </if>
       <if test="seid != null" >
         seid = #{seid,jdbcType=INTEGER},
       </if>
@@ -65,6 +75,7 @@
   <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Qanda" >
     update qanda
     set qanda = #{qanda,jdbcType=VARCHAR},
+      chid = #{chid,jdbcType=INTEGER},
       seid = #{seid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

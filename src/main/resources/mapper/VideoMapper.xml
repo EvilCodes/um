@@ -4,10 +4,11 @@
     <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Video" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="chid" property="chid" jdbcType="INTEGER" />
         <result column="seid" property="seid" jdbcType="INTEGER" />
     </resultMap>
     <sql id="Base_Column_List" >
-        id, url, seid
+        id, url, chid,seid
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
@@ -20,8 +21,8 @@
         where id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.uoumeng.umooc.entity.Video" >
-        insert into video (id, url,seid)
-        values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR},#{seid,jdbcType=INTEGER})
+        insert into video (id, url,chid,seid)
+        values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR},#{chid,jdbcType=INTEGER},#{seid,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Video" >
         insert into video
@@ -31,6 +32,9 @@
             </if>
             <if test="url != null" >
                 url,
+            </if>
+            <if test="chid != null" >
+                chid,
             </if>
             <if test="seid != null" >
                 seid,
@@ -43,6 +47,9 @@
             <if test="url != null" >
                 #{url,jdbcType=VARCHAR},
             </if>
+            <if test="chid != null" >
+                #{chid,jdbcType=INTEGER},
+            </if>
             <if test="seid != null" >
                 #{seid,jdbcType=INTEGER},
             </if>
@@ -54,6 +61,9 @@
             <if test="url != null" >
                 url = #{url,jdbcType=VARCHAR},
             </if>
+            <if test="chid != null" >
+                chid = #{chid,jdbcType=INTEGER},
+            </if>
             <if test="seid != null" >
                 seid = #{seid,jdbcType=INTEGER},
             </if>
@@ -64,6 +74,7 @@
         update video
         set name =
         url = #{url,jdbcType=VARCHAR},
+        chid = #{chid,jdbcType=INTEGER},
         seid = #{seid,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
