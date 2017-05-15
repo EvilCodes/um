@@ -23,7 +23,7 @@ public class VideosectionController {
 
     @RequestMapping(value = "/selectVideosectionInfo",method = RequestMethod.GET)
     private @ResponseBody
-    Result selectTeacherByStuId(@RequestParam("seId") Integer seId){
+    Result selectVideosectionInfo(@RequestParam("seId") Integer seId){
         try{
             Map<String,Object> map = videosectionService.selectVideosectionInfo(seId);
             return new Result(true,map);

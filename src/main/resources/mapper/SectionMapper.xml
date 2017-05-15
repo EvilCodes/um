@@ -91,10 +91,20 @@
     </update>
 
     <!-- 根据章节ID查询本章节所有的视频小节 -->
-    <select id="selectSectionsByChId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-        select
-        <include refid="Base_Column_List" />
-        from Section
-        where chid = #{chId,jdbcType=INTEGER} order by serno
+    <resultMap id="sectionsToMap" type="java.util.HashMap">
+        <result property="seid" column="seid" jdbcType="INTEGER"></result>
+        <result property="sename" column="sename"></result>
+        <result property="setype" column="setype"></result>
+        <result property="serno" column="serno"></result>
+        <result property="chid" column="chid" jdbcType="INTEGER"></result>
+        <result property="cid" column="cid" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <select id="selectSectionsByChId" resultMap="sectionsToMap" >
+        SELECT  s.id seid,s.name sename,s.type setype,s.serno serno,s.chid chid,c.id cid FROM section s LEFT JOIN credit c
+            ON s.id = c.seid
+            AND s.chid = #{chId,jdbcType=INTEGER}
+            AND c.sid = #{stuId,jdbcType=INTEGER}
+            ORDER BY s.serno;
     </select>
 </mapper>

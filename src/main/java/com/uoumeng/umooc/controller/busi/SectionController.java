@@ -1,7 +1,8 @@
 package com.uoumeng.umooc.controller.busi;
 
 import com.uoumeng.umooc.bean.Result;
-import com.uoumeng.umooc.entity.Section;
+import com.uoumeng.umooc.bean.StudentSection;
+import com.uoumeng.umooc.bean.Token;
 import com.uoumeng.umooc.exception.MyException;
 import com.uoumeng.umooc.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +26,13 @@ public class SectionController {
     @Autowired
     private SectionService sectionService;
 
-    @RequestMapping(value = "/selectSectionsByChId",method = RequestMethod.GET)
+    @RequestMapping(value = "/selectSections",method = RequestMethod.GET)
     private @ResponseBody
-    Result selectSectionsByChId(@RequestParam("chId") Integer chId){
+    Result selectSectionsByChId(@RequestParam("chId") Integer chId,HttpServletRequest request){
         try{
-            Map<String,List<Section>> map = sectionService.selectSectionsByChId(chId);
+            String auth = request.getHeader("Authorization");
+            Token token = new Token(auth);
+            Map<String,List<StudentSection>> map = sectionService.selectSectionsByChId(chId,token.getId());
             return new Result(true,map);
         }catch(MyException e){
             return new Result(false,e.getMessage());

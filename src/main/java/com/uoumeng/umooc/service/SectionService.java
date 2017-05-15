@@ -1,6 +1,6 @@
 package com.uoumeng.umooc.service;
 
-import com.uoumeng.umooc.entity.Section;
+import com.uoumeng.umooc.bean.StudentSection;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +14,6 @@ public interface SectionService {
      * @param chId
      * @return
      */
-    Map<String,List<Section>> selectSectionsByChId(Integer chId);
+    Map<String,List<StudentSection>> selectSectionsByChId(Integer chId, Integer stuId);
 
 }

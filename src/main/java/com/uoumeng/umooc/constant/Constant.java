@@ -69,4 +69,10 @@ public interface Constant {
     /** 还不能学 **/
     String STATUS_CHAPTER_NO = "3";
 
+    /** 节的状态1、已经学完 2、正在学习 3、还不能学 **/
+    String STATUS_SECTION_YES = "1";
+    /** 正在学习 **/
+    String STATUS_SECTION_ING = "2";
+    /** 还不能学 **/
+    String STATUS_SECTION_NO = "3";
 }

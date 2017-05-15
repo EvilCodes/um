@@ -1,7 +1,9 @@
 package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Section;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,5 +22,5 @@ public interface SectionMapper {
 
     int updateByPrimaryKey(Section record);
 
-    List<Section> selectSectionsByChId(Integer chId);
+    List<HashMap> selectSectionsByChId(@Param("chId") Integer chId, @Param("stuId") Integer stuId);
 }
