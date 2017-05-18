@@ -1,13 +1,13 @@
 package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Address;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface AddressMapper {
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(@Param("id") Integer id,@Param("sid") Integer sid);
 
     int insert(Address record);
 
@@ -18,4 +18,6 @@ public interface AddressMapper {
     int updateByPrimaryKeySelective(Address record);
 
     int updateByPrimaryKey(Address record);
+
+    List<Address> selectAddressByStuId(Integer sid);
 }

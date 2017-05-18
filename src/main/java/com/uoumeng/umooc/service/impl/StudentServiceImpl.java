@@ -52,4 +52,28 @@ public class StudentServiceImpl implements StudentService{
         }
     }
 
+    @Override
+    public boolean updateStudent(Student student) {
+        try{
+            // 此处要进行校验，比如传来的时候带手机号，则返回手机号码不能在这修改，如果有密码，也要处理等。
+            // 校验的结果，就抛异常
+            int n = studentMapper.updateByPrimaryKeySelective(student);
+            return n==1;
+        }catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
+
+    @Override
+    public Student selectStudentById(Integer id) {
+        try{
+            Student student = studentMapper.selectByPrimaryKey(id);
+            // 将密码和注册日期等敏感或无用字段剔除
+            student.setPasswd(null);
+            student.setRegdate(null);
+            return student;
+        }catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
 }
