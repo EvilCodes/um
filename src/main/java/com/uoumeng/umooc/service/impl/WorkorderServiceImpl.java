@@ -8,6 +8,7 @@ import com.uoumeng.umooc.service.WorkorderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public class WorkorderServiceImpl implements WorkorderService {
     @Override
     public boolean insertWorkorder(Workorder workorder) {
         try {
+            // 设置工单提交时间为当前时间
+            workorder.setAtime(new Date());
             int n = workorderMapper.insert(workorder);
             if (n == 1) {
                 return true;

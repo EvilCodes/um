@@ -8,10 +8,7 @@ import com.uoumeng.umooc.exception.MyException;
 import com.uoumeng.umooc.service.WorkorderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,16 +22,40 @@ public class WorkorderController {
     @Autowired
     private WorkorderService workorderService;
 
-    @RequestMapping(value = "/selectWorkorderByStuId",method = RequestMethod.GET)
+    @RequestMapping(value = "/selectWorkorderByStuId", method = RequestMethod.GET)
     public @ResponseBody
-    Result selectWorkorderByStuId(@ModelAttribute("page") Page page, HttpServletRequest request){
+    Result selectWorkorderByStuId(@ModelAttribute("page") Page page, HttpServletRequest request) {
+        try {
+            String auth = request.getHeader("Authorization");
+            Token token = new Token(auth);
+            Page<Workorder> pageResult = workorderService.selectWorkorderByStuId(token.getId(), page);
+            return new Result(true, pageResult);
+        } catch (MyException e) {
+            return new Result(false, e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/addWorkorder", method = RequestMethod.POST)
+    public @ResponseBody Result addWorkorder(@ModelAttribute("wordorder") Workorder workorder,HttpServletRequest request){
         try{
             String auth = request.getHeader("Authorization");
             Token token = new Token(auth);
-            Page<Workorder> pageResult = workorderService.selectWorkorderByStuId(token.getId(),page);
-            return new Result(true,pageResult);
-        }catch(MyException e){
+            workorder.setSid(token.getId());
+            boolean flag = workorderService.insertWorkorder(workorder);
+            return new Result(flag,"add workorder success !");
+        } catch(MyException e){
             return new Result(false,e.getMessage());
         }
     }
+
+    @RequestMapping(value = "/deleteWorkorder",method = RequestMethod.GET)
+    public @ResponseBody Result deleteWorkorder(@RequestParam("id") Integer id){
+        try{
+            boolean flag = workorderService.deleteWorkorder(id);
+            return new Result(flag,"delete workorder success !");
+        } catch(MyException e){
+            return  new Result(false,e.getMessage());
+        }
+    }
+
 }
