@@ -21,7 +21,7 @@ public class ProjecttrainingController {
     private ProjecttrainingService projecttrainingService;
 
     @RequestMapping(value = "/selectProjecttrainingByChId",method = RequestMethod.GET)
-    private @ResponseBody
+    public @ResponseBody
     Result selectProjecttrainingByChId(@RequestParam("chId") Integer chId){
         try{
             Projecttraining pt = projecttrainingService.selectProjecttrainingByChId(chId);

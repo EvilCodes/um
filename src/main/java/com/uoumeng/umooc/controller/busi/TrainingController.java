@@ -27,7 +27,7 @@ public class TrainingController {
      * 根据小节ID获取练习
      */
     @RequestMapping(value = "/selectTrainingBySeId",method = RequestMethod.GET)
-    private @ResponseBody
+    public @ResponseBody
     Result selectTrainingBySeId(@RequestParam("seId") Integer seId){
         try{
             Map<String,List<Training>> map = trainingService.selectTrainingBySeId(seId);

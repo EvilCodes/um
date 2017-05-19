@@ -1,9 +1,9 @@
 package com.uoumeng.umooc.dao;
 
 import com.uoumeng.umooc.entity.Workorder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface WorkorderMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,4 +17,8 @@ public interface WorkorderMapper {
     int updateByPrimaryKeySelective(Workorder record);
 
     int updateByPrimaryKey(Workorder record);
+
+    List<Workorder> selectWorkorderByStuId(@Param("sid") Integer sid, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
+
+    int selectCountWorkorder(Integer sid);
 }

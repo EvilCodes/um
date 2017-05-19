@@ -20,7 +20,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @RequestMapping(value = "/employee/selectTeacherByStuId",method = RequestMethod.GET)
-    private @ResponseBody
+    public @ResponseBody
     Result selectTeacherByStuId(@RequestHeader("Authorization") String token){
         Integer stuId = new Token(token).getId();
         try{

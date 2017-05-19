@@ -1,117 +1,141 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.uoumeng.umooc.dao.WorkorderMapper" >
-  <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Workorder" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="atime" property="atime" jdbcType="TIMESTAMP" />
-    <result column="qtime" property="qtime" jdbcType="TIMESTAMP" />
-    <result column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="eid" property="eid" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, title, content, atime, qtime, sid, eid
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from workorder
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from workorder
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.uoumeng.umooc.entity.Workorder" >
-    insert into workorder (id, title, content, 
-      atime, qtime, sid, 
-      eid)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{atime,jdbcType=TIMESTAMP}, #{qtime,jdbcType=TIMESTAMP}, #{sid,jdbcType=INTEGER}, 
-      #{eid,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Workorder" >
-    insert into workorder
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-      <if test="atime != null" >
-        atime,
-      </if>
-      <if test="qtime != null" >
-        qtime,
-      </if>
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="eid != null" >
-        eid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="atime != null" >
-        #{atime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="qtime != null" >
-        #{qtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="eid != null" >
-        #{eid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.uoumeng.umooc.entity.Workorder" >
-    update workorder
-    <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="atime != null" >
-        atime = #{atime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="qtime != null" >
-        qtime = #{qtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="sid != null" >
-        sid = #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="eid != null" >
-        eid = #{eid,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Workorder" >
-    update workorder
-    set title = #{title,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      atime = #{atime,jdbcType=TIMESTAMP},
-      qtime = #{qtime,jdbcType=TIMESTAMP},
-      sid = #{sid,jdbcType=INTEGER},
-      eid = #{eid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.uoumeng.umooc.dao.WorkorderMapper">
+    <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Workorder">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="answer" property="answer" jdbcType="VARCHAR"/>
+        <result column="atime" property="atime" jdbcType="TIMESTAMP"/>
+        <result column="qtime" property="qtime" jdbcType="TIMESTAMP"/>
+        <result column="sid" property="sid" jdbcType="INTEGER"/>
+        <result column="eid" property="eid" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, title, content, answer, atime, qtime, sid, eid
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from workorder
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM workorder
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.uoumeng.umooc.entity.Workorder">
+        INSERT INTO workorder (id, title, content, answer,
+                               atime, qtime, sid,
+                               eid)
+        VALUES
+            (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR},
+             #{atime,jdbcType=TIMESTAMP}, #{qtime,jdbcType=TIMESTAMP}, #{sid,jdbcType=INTEGER},
+             #{eid,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Workorder">
+        insert into workorder
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="answer != null">
+                answer,
+            </if>
+            <if test="atime != null">
+                atime,
+            </if>
+            <if test="qtime != null">
+                qtime,
+            </if>
+            <if test="sid != null">
+                sid,
+            </if>
+            <if test="eid != null">
+                eid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="atime != null">
+                #{atime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="qtime != null">
+                #{qtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sid != null">
+                #{sid,jdbcType=INTEGER},
+            </if>
+            <if test="eid != null">
+                #{eid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.uoumeng.umooc.entity.Workorder">
+        update workorder
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                answer = #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="atime != null">
+                atime = #{atime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="qtime != null">
+                qtime = #{qtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sid != null">
+                sid = #{sid,jdbcType=INTEGER},
+            </if>
+            <if test="eid != null">
+                eid = #{eid,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Workorder">
+        UPDATE workorder
+        SET title   = #{title,jdbcType=VARCHAR},
+            content = #{content,jdbcType=VARCHAR},
+            answer  = #{answer,jdbcType=VARCHAR},
+            atime   = #{atime,jdbcType=TIMESTAMP},
+            qtime   = #{qtime,jdbcType=TIMESTAMP},
+            sid     = #{sid,jdbcType=INTEGER},
+            eid     = #{eid,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <!-- 分页获取某学生的全部工单 -->
+    <select id="selectWorkorderByStuId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from workorder
+        where sid = #{sid,jdbcType=INTEGER} limit #{startRow,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <select id="selectCountWorkorder" resultType="java.lang.Integer" parameterType="Integer">
+        SELECT count(*)
+        FROM workorder
+        WHERE sid = #{sid,jdbcType=INTEGER};
+    </select>
 </mapper>

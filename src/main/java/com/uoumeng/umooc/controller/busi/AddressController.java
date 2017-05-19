@@ -28,7 +28,7 @@ public class AddressController {
     private AddressService addressService;
 
     @RequestMapping(value = "/selectAddressById", method = RequestMethod.GET)
-    private @ResponseBody
+    public @ResponseBody
     Result selectAddressById(@RequestParam("id") Integer id) {
         try {
             Address address = addressService.selectById(id);

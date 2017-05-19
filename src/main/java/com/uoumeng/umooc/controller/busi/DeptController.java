@@ -19,7 +19,7 @@ public class DeptController {
     private DeptService deptService;
 
     @RequestMapping(value = "/id",method = RequestMethod.GET)
-    private @ResponseBody Dept findDeptById( @RequestParam("id") Integer id){
+    public @ResponseBody Dept findDeptById( @RequestParam("id") Integer id){
         System.out.println("Hello");
         return deptService.findDeptById(id);
     }

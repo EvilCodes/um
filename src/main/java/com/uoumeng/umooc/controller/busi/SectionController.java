@@ -27,7 +27,7 @@ public class SectionController {
     private SectionService sectionService;
 
     @RequestMapping(value = "/selectSections",method = RequestMethod.GET)
-    private @ResponseBody
+    public @ResponseBody
     Result selectSectionsByChId(@RequestParam("chId") Integer chId,HttpServletRequest request){
         try{
             String auth = request.getHeader("Authorization");
