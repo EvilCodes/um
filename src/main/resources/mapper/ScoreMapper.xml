@@ -1,136 +1,162 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.uoumeng.umooc.dao.ScoreMapper" >
-  <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Score" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="type" property="type" jdbcType="CHAR" />
-    <result column="score" property="score" jdbcType="INTEGER" />
-    <result column="stime" property="stime" jdbcType="TIMESTAMP" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="sid" property="sid" jdbcType="INTEGER" />
-    <result column="chid" property="chid" jdbcType="INTEGER" />
-    <result column="emid" property="emid" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, type, score, stime, url, sid, chid, emid
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from score
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from score
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.uoumeng.umooc.entity.Score" >
-    insert into score (id, type, score, 
-      stime, url, sid, 
-      chid, emid)
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=CHAR}, #{score,jdbcType=INTEGER}, 
-      #{stime,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, #{sid,jdbcType=INTEGER}, 
-      #{chid,jdbcType=INTEGER}, #{emid,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Score" >
-    insert into score
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="score != null" >
-        score,
-      </if>
-      <if test="stime != null" >
-        stime,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="chid != null" >
-        chid,
-      </if>
-      <if test="emid != null" >
-        emid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=CHAR},
-      </if>
-      <if test="score != null" >
-        #{score,jdbcType=INTEGER},
-      </if>
-      <if test="stime != null" >
-        #{stime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="sid != null" >
-        #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="chid != null" >
-        #{chid,jdbcType=INTEGER},
-      </if>
-      <if test="emid != null" >
-        #{emid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.uoumeng.umooc.entity.Score" >
-    update score
-    <set >
-      <if test="type != null" >
-        type = #{type,jdbcType=CHAR},
-      </if>
-      <if test="score != null" >
-        score = #{score,jdbcType=INTEGER},
-      </if>
-      <if test="stime != null" >
-        stime = #{stime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="sid != null" >
-        sid = #{sid,jdbcType=INTEGER},
-      </if>
-      <if test="chid != null" >
-        chid = #{chid,jdbcType=INTEGER},
-      </if>
-      <if test="emid != null" >
-        emid = #{emid,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Score" >
-    update score
-    set type = #{type,jdbcType=CHAR},
-      score = #{score,jdbcType=INTEGER},
-      stime = #{stime,jdbcType=TIMESTAMP},
-      url = #{url,jdbcType=VARCHAR},
-      sid = #{sid,jdbcType=INTEGER},
-      chid = #{chid,jdbcType=INTEGER},
-      emid = #{emid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.uoumeng.umooc.dao.ScoreMapper">
+    <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Score">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="CHAR"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="stime" property="stime" jdbcType="TIMESTAMP"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="sid" property="sid" jdbcType="INTEGER"/>
+        <result column="chid" property="chid" jdbcType="INTEGER"/>
+        <result column="emid" property="emid" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, type, score, stime, url, sid, chid, emid
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from score
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM score
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.uoumeng.umooc.entity.Score">
+        INSERT INTO score (id, type, score,
+                           stime, url, sid,
+                           chid, emid)
+        VALUES (#{id,jdbcType=INTEGER}, #{type,jdbcType=CHAR}, #{score,jdbcType=INTEGER},
+                #{stime,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, #{sid,jdbcType=INTEGER},
+                #{chid,jdbcType=INTEGER}, #{emid,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.uoumeng.umooc.entity.Score">
+        insert into score
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="stime != null">
+                stime,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="sid != null">
+                sid,
+            </if>
+            <if test="chid != null">
+                chid,
+            </if>
+            <if test="emid != null">
+                emid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="stime != null">
+                #{stime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="sid != null">
+                #{sid,jdbcType=INTEGER},
+            </if>
+            <if test="chid != null">
+                #{chid,jdbcType=INTEGER},
+            </if>
+            <if test="emid != null">
+                #{emid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.uoumeng.umooc.entity.Score">
+        update score
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=CHAR},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="stime != null">
+                stime = #{stime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="sid != null">
+                sid = #{sid,jdbcType=INTEGER},
+            </if>
+            <if test="chid != null">
+                chid = #{chid,jdbcType=INTEGER},
+            </if>
+            <if test="emid != null">
+                emid = #{emid,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.uoumeng.umooc.entity.Score">
+        UPDATE score
+        SET type  = #{type,jdbcType=CHAR},
+            score = #{score,jdbcType=INTEGER},
+            stime = #{stime,jdbcType=TIMESTAMP},
+            url   = #{url,jdbcType=VARCHAR},
+            sid   = #{sid,jdbcType=INTEGER},
+            chid  = #{chid,jdbcType=INTEGER},
+            emid  = #{emid,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
 
-  <!-- 根据学生ID查找该学生所有的形考成绩 -->
-  <select id="selectFormalExamScores" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from score
-    where sid = #{sid,jdbcType=INTEGER} and type = #{type,jdbcType=VARCHAR}
-  </select>
+    <!-- 根据学生ID查找该学生所有的形考或项目考成绩 -->
+    <select id="selectFormalExamScores" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from score
+        where sid = #{sid,jdbcType=INTEGER} and type = #{type,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据学生ID和章ID，查询某一章的形考及项目考成绩 -->
+    <select id="selectScoreByChid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from score
+        where sid = #{sid,jdbcType=INTEGER} and chid = #{chid,jdbcType=INTEGER}
+    </select>
+
+    <!-- 根据学生ID查找该学生所有章的汇总成绩 -->
+
+    <resultMap id="scoreToMap" type="java.util.HashMap">
+        <result property="id" column="id" jdbcType="INTEGER"></result>
+        <result property="name" column="name" jdbcType="VARCHAR"></result>
+        <result property="score" column="score" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <select id="selectScoresByStuId" resultMap="scoreToMap">
+        SELECT
+            ch.id,
+            ch.name,
+            sum(s.score) AS scores
+        FROM chapter ch, score s
+        WHERE ch.id = s.chid AND s.sid = #{#sid,jdbcType=INTEGER}
+        GROUP BY s.sid, ch.name;
+    </select>
 </mapper>

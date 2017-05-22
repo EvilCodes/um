@@ -55,14 +55,14 @@ public class AddressController {
         }
     }
 
-    @RequestMapping(value = "/deleteAddress", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteAddressById", method = RequestMethod.GET)
     private @ResponseBody
-    Result deleteAddress(@RequestParam("id") Integer id, HttpServletRequest request) {
+    Result deleteAddressById(@RequestParam("id") Integer id, HttpServletRequest request) {
         try {
             String auth = request.getHeader("Authorization");
             Token token = new Token(auth);
             boolean flag = addressService.deleteById(id,token.getId());
-            return new Result(true, flag);
+            return new Result(flag,"delete success");
         } catch (MyException e) {
             return new Result(false, e.getMessage());
         }
@@ -73,7 +73,7 @@ public class AddressController {
     Result updateAddress(@RequestParam("address") Address address) {
         try {
             boolean flag = addressService.updateAddress(address);
-            return new Result(true, flag);
+            return new Result(flag,"update address success");
         } catch (MyException e) {
             return new Result(false, e.getMessage());
         }
@@ -81,10 +81,14 @@ public class AddressController {
 
     @RequestMapping(value = "/insertAddress", method = RequestMethod.POST)
     private @ResponseBody
-    Result insertAddress(@RequestParam("address") Address address) {
+    Result insertAddress(@RequestParam("address") Address address,HttpServletRequest request) {
         try {
+            String auth = request.getHeader("Authorization");
+            Token token = new Token(auth);
+            // 设置地址的学生Id
+            address.setSid(token.getId());
             boolean flag = addressService.insertAddress(address);
-            return new Result(true, flag);
+            return new Result(flag,"add address success");
         } catch (MyException e) {
             return new Result(false, e.getMessage());
         }
