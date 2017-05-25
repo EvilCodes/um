@@ -65,6 +65,21 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public boolean updatePasswd(String npasswd, Integer id) {
+        try{
+            int n = studentMapper.updatePasswd(npasswd,id);
+            if(n!=1){
+                throw new MyException("更新密码失败");
+            }
+            return true;
+        } catch(MyException e){
+            throw e;
+        } catch(Exception e){
+            throw new MyException("系统错误："+e.getMessage());
+        }
+    }
+
+    @Override
     public Student selectStudentById(Integer id) {
         try{
             Student student = studentMapper.selectByPrimaryKey(id);

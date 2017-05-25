@@ -51,6 +51,4 @@ public class ScoreController {
             return new Result(false, e.getMessage());
         }
     }
-
-
 }

@@ -166,4 +166,10 @@
       xmid = #{xmid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 更新密码 -->
+  <update id="updatePasswd">
+    update student SET passwd = #{npasswd,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

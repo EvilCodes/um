@@ -25,6 +25,14 @@ public interface StudentService {
     boolean updateStudent(Student student);
 
     /**
+     * 更新密码
+     * @param npasswd
+     * @param id
+     * @return
+     */
+    boolean updatePasswd(String npasswd,Integer id);
+
+    /**
      * 根据Id查找学生信息
      * @param id
      * @return

@@ -17,4 +17,6 @@ public interface StudentMapper {
     int updateByPrimaryKey(Student record);
 
     Student selectByMobile(@Param("mobile") String mobile, @Param("passwd") String passwd);
+
+    int updatePasswd(@Param("npasswd") String npasswd,@Param("id") Integer id);
 }

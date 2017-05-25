@@ -7,10 +7,7 @@ import com.uoumeng.umooc.exception.MyException;
 import com.uoumeng.umooc.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,5 +54,24 @@ public class StudentController {
             return  new Result(false,e.getMessage());
         }
         return result;
+    }
+
+
+    @RequestMapping(value = "updatePasswd",method = RequestMethod.POST)
+    public @ResponseBody Result updatePasswd(@RequestParam("opasswd") String opasswd, @RequestParam("npasswd1") String npasswd1, @RequestParam("npasswd2") String npasswd2, HttpServletRequest request){
+        try{
+            if(!npasswd1.equals(npasswd2)){
+                return new Result(false,"两次密码不一致");
+            }
+            if(opasswd.equals(npasswd1)){
+                return new Result(false,"新旧密码相同");
+            }
+            String auth = request.getHeader("Authorization");
+            Token token = new Token(auth);
+            boolean flag = studentService.updatePasswd(npasswd1,token.getId());
+            return new Result(flag,"更新密码成功");
+        } catch(MyException e){
+            return new Result(false,e.getMessage());
+        }
     }
 }
