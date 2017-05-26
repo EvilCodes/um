@@ -4,7 +4,6 @@
     <resultMap id="BaseResultMap" type="com.uoumeng.umooc.entity.Material">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="no" property="no" jdbcType="VARCHAR"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
         <result column="suffix" property="suffix" jdbcType="INTEGER"/>
         <result column="animation" property="animation" jdbcType="VARCHAR"/>
@@ -15,9 +14,11 @@
         <result column="passwd" property="passwd" jdbcType="VARCHAR"/>
         <result column="mdesc" property="mdesc" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="mtime" property="mtime" jdbcType="TIMESTAMP"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,name,no,type,suffix,animation,size,price,bean,url,passwd,mdesc,content
+        id,name,type,suffix,animation,size,price,bean,url,passwd,mdesc,content,mtime,img
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
